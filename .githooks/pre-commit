@@ -1,0 +1,209 @@
+#!/bin/sh
+# Pre-commit hook: Run validators before committing
+
+# Kill any running dev servers that would conflict with Playwright
+cleanup_servers() {
+    # Kill Hugo on port 1313
+    lsof -ti:1313 2>/dev/null | xargs kill 2>/dev/null
+    # Kill Playwright test server on port 3000
+    lsof -ti:3000 2>/dev/null | xargs kill 2>/dev/null
+    # Give processes time to exit
+    sleep 1
+}
+
+cleanup_servers
+
+echo "Running validators..."
+
+# Create reports directory with timestamp
+TIMESTAMP=$(date +%Y-%m-%d_%H%M%S)
+REPORT_DIR=".validation-reports/${TIMESTAMP}"
+mkdir -p "$REPORT_DIR"
+
+# Track overall status
+FAILED=0
+
+# Build the site first (fail on warnings too)
+hugo --panicOnWarning > "$REPORT_DIR/hugo-build.log" 2>&1
+HUGO_STATUS=$?
+if [ $HUGO_STATUS -ne 0 ]; then
+    echo "❌ Hugo build failed (or has warnings)"
+    echo "   See: $REPORT_DIR/hugo-build.log"
+    cat "$REPORT_DIR/hugo-build.log"
+    FAILED=1
+else
+    echo "✅ Hugo build"
+fi
+
+# Run CSS validation
+npm run validate:css > "$REPORT_DIR/css-validation.log" 2>&1
+CSS_STATUS=$?
+if [ $CSS_STATUS -ne 0 ]; then
+    echo "❌ CSS validation failed"
+    echo "   See: $REPORT_DIR/css-validation.log"
+    cat "$REPORT_DIR/css-validation.log"
+    FAILED=1
+else
+    echo "✅ CSS validation"
+fi
+
+# Run HTML validation
+HTML_COUNT=$(find public -name "*.html" | wc -l | tr -d ' ')
+echo "Validating $HTML_COUNT HTML files..." > "$REPORT_DIR/html-validation.log"
+npm run validate:html >> "$REPORT_DIR/html-validation.log" 2>&1
+HTML_STATUS=$?
+if [ $HTML_STATUS -ne 0 ]; then
+    echo "❌ HTML validation failed"
+    echo "   See: $REPORT_DIR/html-validation.log"
+    cat "$REPORT_DIR/html-validation.log"
+    FAILED=1
+else
+    echo "$HTML_COUNT files validated, 0 errors" >> "$REPORT_DIR/html-validation.log"
+    echo "✅ HTML validation"
+fi
+
+# Run Playwright tests (links + accessibility)
+echo "Running Playwright tests..."
+npm test > "$REPORT_DIR/playwright.log" 2>&1
+TEST_STATUS=$?
+
+# Display formatted results from results.json
+if [ -f "test-results/results.json" ]; then
+    echo ""
+    # Parse and display results using node
+    node -e '
+const fs = require("fs");
+const results = JSON.parse(fs.readFileSync("test-results/results.json", "utf8"));
+
+for (const suite of results.suites) {
+    console.log(`\n📋 ${suite.suite}`);
+    for (const test of suite.tests) {
+        const icon = test.status === "passed" ? "✅" : test.status === "failed" ? "❌" : "⏭️";
+        console.log(`   ${icon} ${test.name} (${test.duration})`);
+        for (const line of test.output) {
+            console.log(`      ${line}`);
+        }
+        for (const err of test.errors) {
+            console.log(`      ❗ ${err}`);
+        }
+    }
+}
+
+console.log(`\n📊 Summary: ${results.passed} passed, ${results.failed} failed, ${results.skipped} skipped (${results.duration})`);
+'
+    echo ""
+fi
+
+# Copy results to report dir
+cp test-results/results.json "$REPORT_DIR/playwright-results.json" 2>/dev/null
+
+if [ $TEST_STATUS -ne 0 ]; then
+    echo "❌ Playwright tests failed"
+    echo "   See: $REPORT_DIR/playwright.log"
+    FAILED=1
+else
+    echo "✅ Playwright tests"
+fi
+
+# Generate combined human-readable report
+node -e '
+const fs = require("fs");
+const path = require("path");
+
+const reportDir = process.argv[1];
+const timestamp = process.argv[2];
+const hugoStatus = process.argv[3] === "0" ? "PASSED" : "FAILED";
+const cssStatus = process.argv[4] === "0" ? "PASSED" : "FAILED";
+const htmlStatus = process.argv[5] === "0" ? "PASSED" : "FAILED";
+const testStatus = process.argv[6] === "0" ? "PASSED" : "FAILED";
+
+let report = `# Validation Report
+
+Generated: ${new Date().toLocaleString()}
+
+---
+
+## Hugo Build: ${hugoStatus === "PASSED" ? "✅ PASSED" : "❌ FAILED"}
+
+\`\`\`
+${fs.readFileSync(path.join(reportDir, "hugo-build.log"), "utf8").trim()}
+\`\`\`
+
+---
+
+## CSS Validation: ${cssStatus === "PASSED" ? "✅ PASSED" : "❌ FAILED"}
+
+\`\`\`
+${fs.readFileSync(path.join(reportDir, "css-validation.log"), "utf8").trim()}
+\`\`\`
+
+---
+
+## HTML Validation: ${htmlStatus === "PASSED" ? "✅ PASSED" : "❌ FAILED"}
+
+\`\`\`
+${fs.readFileSync(path.join(reportDir, "html-validation.log"), "utf8").trim()}
+\`\`\`
+
+---
+
+## Playwright Tests: ${testStatus === "PASSED" ? "✅ PASSED" : "❌ FAILED"}
+
+`;
+
+// Add Playwright results if available
+const resultsPath = path.join(reportDir, "playwright-results.json");
+if (fs.existsSync(resultsPath)) {
+    const results = JSON.parse(fs.readFileSync(resultsPath, "utf8"));
+
+    for (const suite of results.suites) {
+        report += `### ${suite.suite}\n\n`;
+        report += `| Test | Status | Duration |\n`;
+        report += `|------|--------|----------|\n`;
+
+        for (const test of suite.tests) {
+            const icon = test.status === "passed" ? "✅" : test.status === "failed" ? "❌" : "⏭️";
+            report += `| ${test.name} | ${icon} | ${test.duration} |\n`;
+        }
+        report += `\n`;
+
+        // Add details for failed tests
+        for (const test of suite.tests) {
+            if (test.errors.length > 0) {
+                report += `**${test.name}** - Errors:\n`;
+                for (const err of test.errors) {
+                    report += `- ${err}\n`;
+                }
+                report += `\n`;
+            }
+        }
+    }
+
+    report += `---\n\n`;
+    report += `## Summary\n\n`;
+    report += `- **Tests:** ${results.passed} passed, ${results.failed} failed, ${results.skipped} skipped\n`;
+    report += `- **Duration:** ${results.duration}\n`;
+}
+
+const allPassed = hugoStatus === "PASSED" && cssStatus === "PASSED" && htmlStatus === "PASSED" && testStatus === "PASSED";
+report += `\n---\n\n`;
+report += allPassed ? `## ✅ All validations passed\n` : `## ❌ Some validations failed\n`;
+
+fs.writeFileSync("VALIDATION-REPORT.md", report);
+console.log("Generated VALIDATION-REPORT.md");
+' "$REPORT_DIR" "$TIMESTAMP" "$HUGO_STATUS" "$CSS_STATUS" "$HTML_STATUS" "$TEST_STATUS"
+
+# Clean up old reports, keep only last 8
+cd .validation-reports 2>/dev/null && ls -1t | tail -n +9 | xargs rm -rf 2>/dev/null
+cd - > /dev/null
+
+echo ""
+if [ $FAILED -ne 0 ]; then
+    echo "❌ Validation failed"
+    echo "   See: VALIDATION-REPORT.md"
+    exit 1
+fi
+
+echo "✅ All validations passed"
+echo "   Report: VALIDATION-REPORT.md"
+exit 0

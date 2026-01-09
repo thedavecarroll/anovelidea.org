@@ -1,0 +1,32 @@
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-branding">
+      <a href="{{ .Site.BaseURL }}" class="site-title">{{ .Site.Title }}</a>
+      {{ with .Site.Params.logo.subtitle }}
+      <p class="site-subtitle">{{ . }}</p>
+      {{ end }}
+    </div>
+
+    <div class="header-controls">
+      <button type="button" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul class="nav-menu">
+        {{ range .Site.Menus.main }}
+        <li class="nav-item{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
+          <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+        </li>
+        {{ end }}
+        <li class="nav-item nav-toggle">
+          <button type="button" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <span class="icon-sun">&#9788;</span>
+            <span class="icon-moon">&#9790;</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

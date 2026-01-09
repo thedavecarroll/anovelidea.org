@@ -1,0 +1,60 @@
+baseURL: /
+title: A Novel Idea
+copyright: Copyright © 2000-2024 - Dave Carroll
+
+languageCode: en-us
+theme: literary
+canonifyURLs: true
+pluralizeListTitles: false
+summaryLength: 50
+
+pagination:
+  pagerSize: 10
+enableEmoji: true
+
+author:
+  name: Dave Carroll
+  bio: Just a weird guy that likes technology, doggos, and stories.
+  avatar: img/thedavecarroll-avatar.jpg
+
+params:
+  description: Fiction, poetry, and creative writing by Dave Carroll
+  copyright: Dave Carroll
+  opengraph: true
+  schema: true
+  readmore: true
+  authorbox: false
+  toc: false
+  pager: true
+  dateformat: "January 2, 2006"
+  mainSections:
+    - fiction
+    - poetry
+    - bloodlines
+
+  logo:
+    image: /img/ucsb_header.jpg
+    subtitle: Fiction, Poetry & Creative Writing
+
+  sidebar:
+    home: right
+    list: false
+    single: false
+
+menu:
+  main:
+    - name: Poetry
+      url: /poetry/
+      weight: 10
+    - name: Fiction
+      url: /fiction/
+      weight: 15
+    - name: Character Development
+      url: /character-development/
+      weight: 20
+    - name: Bloodlines
+      url: /bloodlines/
+      weight: 30
+    - name: About
+      url: /about/
+      weight: 50

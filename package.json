@@ -1,0 +1,25 @@
+{
+  "name": "anovelidea-org",
+  "private": true,
+  "scripts": {
+    "validate:html": "find public -name '*.html' -not -path '*/page/*' | xargs html-validate --formatter stylish",
+    "validate:css": "stylelint --formatter verbose 'themes/*/assets/scss/**/*.scss'",
+    "validate": "npm run validate:css && npm run validate:html",
+    "test": "playwright test",
+    "test:links": "playwright test links",
+    "test:a11y": "playwright test a11y",
+    "test:ui": "playwright test --ui",
+    "a11y:hugo": "pa11y http://localhost:1313"
+  },
+  "dependencies": {
+    "sass-embedded": "^1.97.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.49.0",
+    "html-validate": "^10.5.0",
+    "pa11y": "^9.0.1",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard-scss": "^16.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+// Print Styles
+
+@media print {
+  .site-header,
+  .site-footer,
+  .chapter-nav,
+  .section-indicator {
+    display: none;
+  }
+
+  body {
+    font-size: 11pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+
+  .single-page,
+  .list-page,
+  .home-content {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .prose p {
+    text-indent: 2em;
+  }
+}

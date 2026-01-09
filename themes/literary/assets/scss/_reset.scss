@@ -1,0 +1,32 @@
+// Reset & Base Styles
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+// Site Wrapper
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

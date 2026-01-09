@@ -1,0 +1,22 @@
+// Poetry Section - Special styling for verse
+
+.section-poetry .prose {
+  line-height: 1.5;
+
+  p {
+    text-indent: 0;
+    text-align: left;
+    white-space: pre-wrap;
+    margin-bottom: 1em;
+  }
+
+  p:first-of-type::first-letter {
+    font-size: inherit;
+    float: none;
+    line-height: inherit;
+    padding-right: 0;
+    margin-top: 0;
+    font-weight: inherit;
+    color: inherit;
+  }
+}

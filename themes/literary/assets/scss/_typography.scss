@@ -1,0 +1,70 @@
+// Typography
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: 2.25rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.625rem;
+  text-align: center;
+  margin-top: 2.5em;
+}
+
+h3 {
+  font-size: 1.375rem;
+}
+
+h4 {
+  font-size: 1.125rem;
+}
+
+p {
+  margin-bottom: 1.25em;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--color-accent-dark);
+    text-decoration-thickness: 2px;
+  }
+}
+
+blockquote {
+  margin: 2em 1.5em;
+  padding: 0 1.5em;
+  border-left: 3px solid var(--color-gold);
+  font-style: italic;
+  color: var(--color-ink-light);
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+
+  &::before {
+    content: '* * *';
+    letter-spacing: 1em;
+    color: var(--color-ink-muted);
+  }
+}

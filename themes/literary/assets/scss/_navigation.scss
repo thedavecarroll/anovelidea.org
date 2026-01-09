@@ -1,0 +1,137 @@
+// Chapter Navigation - Book Navigation
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+
+  a {
+    display: block;
+    padding: 1rem;
+    text-decoration: none !important;
+    transition: background 0.2s ease;
+    min-width: 120px;
+
+    &:hover {
+      background: var(--color-paper-dark);
+    }
+  }
+}
+
+.nav-prev-wrap,
+.nav-section-wrap,
+.nav-next-wrap {
+  flex: 1;
+  display: flex;
+}
+
+.nav-prev-wrap {
+  justify-content: flex-start;
+}
+
+.nav-section-wrap {
+  justify-content: center;
+}
+
+.nav-next-wrap {
+  justify-content: flex-end;
+}
+
+.nav-prev {
+  text-align: left;
+}
+
+.nav-section {
+  text-align: center;
+}
+
+.nav-next {
+  text-align: right;
+}
+
+.nav-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.25rem;
+}
+
+.nav-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.nav-section .nav-title {
+  color: var(--color-accent);
+}
+
+// Table of Contents
+.table-of-contents {
+  background: var(--color-paper-dark);
+  padding: var(--spacing);
+  margin-bottom: 2rem;
+  border-left: 3px solid var(--color-gold);
+
+  h2 {
+    font-size: 0.9rem;
+    margin: 0 0 0.75rem 0;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: left;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  nav {
+    font-size: 0.9rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin: 0.4rem 0;
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+
+  .page-item {
+    list-style: none;
+
+    &.active .page-link {
+      background: var(--color-accent);
+      color: white;
+    }
+  }
+
+  .page-link {
+    display: block;
+    padding: 0.4rem 0.6rem;
+  }
+}

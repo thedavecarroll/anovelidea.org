@@ -1,0 +1,44 @@
+// Variables and Theme Colors
+
+:root,
+[data-theme="light"] {
+  --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  // Light mode - Book-inspired color palette
+  --color-paper: #f8f5f0;
+  --color-paper-dark: #f0ebe3;
+  --color-ink: #2d2a26;
+  --color-ink-light: #4a4640;
+  --color-ink-muted: #7a756d;
+  --color-accent: #1a5f7a;
+  --color-accent-dark: #134a5f;
+  --color-gold: #c9a227;
+  --color-border: #d4cdc2;
+  --color-shadow: rgba(45, 42, 38, 0.1);
+  --color-bg: linear-gradient(135deg, #e8e4dc 0%, #d4cdc2 100%);
+  --color-header: #2d2a26;
+  --color-header-text: #f8f5f0;
+
+  --page-width: 700px;
+  --page-padding: 3rem;
+  --spacing: 1.5rem;
+}
+
+// Dark mode - Night reading
+[data-theme="dark"] {
+  --color-paper: #1a1a1a;
+  --color-paper-dark: #242424;
+  --color-ink: #e8e4dc;
+  --color-ink-light: #c4bfb6;
+  --color-ink-muted: #8a857d;
+  --color-accent: #d4a574;
+  --color-accent-dark: #b8956a;
+  --color-gold: #d4a574;
+  --color-border: #3a3a3a;
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-bg: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+  --color-header: #0d0d0d;
+  --color-header-text: #e8e4dc;
+}

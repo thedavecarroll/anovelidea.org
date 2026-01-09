@@ -1,0 +1,35 @@
+// Layout - Main Content and Page Containers
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--page-width) + 6rem);
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+// Page Container - Book Page Effect
+.single-page,
+.list-page,
+.home-content {
+  background: var(--color-paper);
+  padding: var(--page-padding);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    -5px 0 15px -5px var(--color-shadow),
+    5px 0 15px -5px var(--color-shadow),
+    0 10px 30px -10px rgba(45, 42, 38, 0.2);
+  position: relative;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+
+  // Page edge effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to right, transparent, var(--color-border));
+  }
+}

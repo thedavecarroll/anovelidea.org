@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article class="home-content">
+  <section class="welcome">
+    <p class="welcome-text">Welcome. Use the navigation above to explore the writing collected here.</p>
+  </section>
+
+  <section class="sections-overview">
+    {{ $sections := slice "poetry" "fiction" "character-development" "bloodlines" }}
+    {{ range $sections }}
+      {{ $section := site.GetPage (printf "/%s" .) }}
+      {{ if $section }}
+      <div class="section-card">
+        <h2 class="section-title">
+          <a href="{{ $section.Permalink }}">{{ $section.Title }}</a>
+        </h2>
+        {{ with $section.Description }}
+        <p class="section-description">{{ . }}</p>
+        {{ end }}
+      </div>
+      {{ end }}
+    {{ end }}
+  </section>
+</article>
+{{ end }}

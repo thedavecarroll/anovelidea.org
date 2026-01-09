@@ -1,0 +1,56 @@
+// Home Page
+
+.home-content {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome {
+  text-align: center;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  color: var(--color-ink-light);
+  font-style: italic;
+  margin: 0;
+}
+
+.sections-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-card {
+  padding: 1.25rem;
+  background: var(--color-paper-dark);
+  border-left: 3px solid var(--color-gold);
+}
+
+.section-card .section-title {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+
+  a {
+    color: var(--color-ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+}
+
+.section-card .section-description {
+  font-size: 0.95rem;
+  color: var(--color-ink-light);
+  margin: 0;
+  line-height: 1.5;
+}

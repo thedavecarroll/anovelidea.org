@@ -1,0 +1,118 @@
+// Responsive Design
+
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  :root {
+    --page-padding: 1.5rem;
+  }
+
+  .site-header {
+    position: relative;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .site-branding {
+    text-align: center;
+  }
+
+  .header-controls {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    width: 100%;
+    display: none;
+
+    &.is-open {
+      display: block;
+    }
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-item a {
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-toggle .dark-mode-toggle {
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+  }
+
+  .main-content {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .single-page,
+  .list-page,
+  .home-content {
+    box-shadow: 0 0 0 1px var(--color-border);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .article-title {
+    font-size: 1.75rem;
+  }
+
+  .prose p:first-of-type::first-letter {
+    font-size: 3em;
+  }
+
+  .chapter-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    a {
+      width: 100%;
+      text-align: center;
+      background: var(--color-paper-dark);
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .nav-prev-wrap,
+  .nav-section-wrap,
+  .nav-next-wrap {
+    justify-content: stretch;
+  }
+
+  // Pagination touch targets
+  .page-link {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

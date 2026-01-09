@@ -1,0 +1,94 @@
+// List Pages - Table of Contents Style
+
+.list-page {
+  min-height: 60vh;
+}
+
+.page-header {
+  text-align: center;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+
+  &::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--color-gold);
+    margin: 0 auto 1.5rem;
+  }
+}
+
+.page-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.page-description {
+  font-size: 1rem;
+  color: var(--color-ink-light);
+  font-style: italic;
+  margin: 0;
+}
+
+.section-intro {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  font-style: italic;
+  color: var(--color-ink-light);
+}
+
+.content-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.content-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px dotted var(--color-border);
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.item-title {
+  font-size: 1.25rem;
+  margin: 0 0 0.25rem 0;
+  font-weight: 500;
+
+  a {
+    color: var(--color-ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+}
+
+.item-subtitle {
+  font-style: italic;
+  color: var(--color-ink-light);
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.item-description {
+  color: var(--color-ink-light);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.item-meta {
+  display: none; // Hide dates for cleaner book-like appearance
+}

@@ -1,0 +1,11 @@
+name = "Literary"
+license = "MIT"
+licenselink = "https://github.com/yourname/literary/blob/master/LICENSE"
+description = "A clean, elegant Hugo theme designed for literary works and long-form fiction"
+homepage = "https://github.com/yourname/literary"
+tags = ["blog", "writing", "fiction", "literary", "minimal", "responsive"]
+features = ["blog", "syntax highlighting", "responsive"]
+min_version = "0.112.0"
+
+[author]
+  name = "Dave Carroll"

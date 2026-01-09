@@ -1,0 +1,21 @@
+# Hugo
+public/
+resources/_gen/
+
+# Node
+node_modules/
+
+# Test artifacts
+test-results/
+.validation-reports/
+VALIDATION-REPORT.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

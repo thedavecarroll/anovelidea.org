@@ -1,0 +1,63 @@
+// Single Page - Chapter/Story Page
+
+.single-page {
+  min-height: 70vh;
+}
+
+.article-header {
+  text-align: center;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+
+  // Ornamental divider after header
+  &::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: var(--color-gold);
+    margin: 2rem auto 0;
+  }
+}
+
+.section-indicator {
+  margin-bottom: 1rem;
+
+  a {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-ink-muted);
+    text-decoration: none !important;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
+    display: inline-block;
+
+    &:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+  }
+}
+
+.article-title {
+  font-size: 2.25rem;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.article-subtitle {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--color-ink-light);
+  margin: 0 0 1rem 0;
+}
+
+.article-author {
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+  margin: 0;
+  font-style: italic;
+}
