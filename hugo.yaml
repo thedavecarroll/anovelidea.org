@@ -1,7 +1,5 @@
-baseURL: /
+baseURL: https://anovelidea.org/
 title: A Novel Idea
-copyright: Copyright © 2000-2024 - Dave Carroll
-
 languageCode: en-us
 theme: literary
 canonifyURLs: true
