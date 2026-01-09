@@ -54,7 +54,9 @@ test.describe('Interaction', () => {
     const violations: { url: string; elements: { selector: string; width: number; height: number }[] }[] = [];
 
     for (const path of allPages) {
-      await page.goto(`${baseURL}${path}`, { waitUntil: 'load' });
+      await page.goto(`${baseURL}${path}`, { waitUntil: 'networkidle' });
+      // Wait for CSS to fully render
+      await page.waitForTimeout(100);
 
       // Check interactive elements for minimum touch target size
       const smallTargets = await page.evaluate((minSize: number) => {
@@ -77,8 +79,13 @@ test.describe('Interaction', () => {
             const rect = el.getBoundingClientRect();
             const style = window.getComputedStyle(el);
 
-            // Skip hidden elements
-            if (style.display === 'none' || style.visibility === 'hidden' || rect.width === 0) {
+            const htmlEl = el as HTMLElement;
+            // Skip hidden elements - use offsetWidth/Height which are 0 for hidden elements
+            if (htmlEl.offsetWidth === 0 || htmlEl.offsetHeight === 0) {
+              return;
+            }
+            // Skip if display:none or visibility:hidden
+            if (style.display === 'none' || style.visibility === 'hidden') {
               return;
             }
 

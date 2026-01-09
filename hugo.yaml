@@ -2,7 +2,6 @@ baseURL: https://anovelidea.org/
 title: A Novel Idea
 languageCode: en-us
 theme: literary
-canonifyURLs: true
 pluralizeListTitles: false
 summaryLength: 50
 

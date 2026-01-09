@@ -30,6 +30,8 @@
 
   .menu-toggle {
     display: flex;
+    width: 44px;
+    height: 44px;
   }
 
   .main-nav {
@@ -56,6 +58,7 @@
 
   .nav-toggle .dark-mode-toggle {
     padding: 0.75rem 1rem;
+    min-width: 44px;
     min-height: 44px;
   }
 

@@ -13,8 +13,7 @@ const CONCURRENT_EXTERNAL_CHECKS = 5;
 
 // Skip these domains that commonly block automated requests or are known-good
 const SKIP_EXTERNAL_DOMAINS: Record<string, string> = {
-  'fonts.googleapis.com': 'Google Fonts CDN',
-  'fonts.gstatic.com': 'Google Fonts static assets',
+  'anovelidea.org': 'Production domain (internal link with absolute URL)',
 };
 
 test.describe('Link Validation', () => {
