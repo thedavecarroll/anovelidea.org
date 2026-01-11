@@ -19,3 +19,8 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# hugo-validator
+hugo-validator/reports/
+hugo-validator/test-results/
+hugo-validator/.validation-cache.json
